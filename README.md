@@ -57,6 +57,8 @@ root
 
 ## Notes
 
+* Program is built and tested on Ubuntu 18.04.
+* Because the demo program is built on MacOS, so that I can't run it. Therefore, this implementation is based on the instruction file only.
 * Program support searching on all fields of all collections (User, Ticket, Organization). But on each collection only _id field have been indexed using map data structure. But we can easily build index for other fields with the same technique.
 
 * Our core logic functions are at the data layer, so unit tests focus most on this (in the **repo** folder). The test coverage is not so high (about 70%) but enough to illustrate the testing method.
