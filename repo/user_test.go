@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const corruptedUserData = `[{dfafas`
+const corruptedUserData = `user`
 const sampleUserData = `
 [
   {
