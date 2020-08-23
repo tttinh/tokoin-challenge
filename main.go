@@ -8,7 +8,7 @@ import (
 
 func main() {
 	cfg := config.New()
-	if err := cfg.Init(".", "default"); err != nil {
+	if err := cfg.Init("./config", "default"); err != nil {
 		utils.WriteLine(err)
 		return
 	}
