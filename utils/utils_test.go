@@ -7,25 +7,24 @@ import (
 )
 
 func TestStringToBool(t *testing.T) {
-	assert := assert.New(t)
-
-	var tests = []struct {
-		input         string
-		expectedValue bool
-		expectedErr   bool
-	}{
-		{"true", true, false},
-		{"false", false, false},
-		{"1", false, true},
+	type args struct {
+		value string
 	}
-
-	for _, test := range tests {
-		output, err := StringToBool(test.input)
-		if test.expectedErr {
-			assert.NotNil(err)
-		} else {
-			assert.Nil(err)
-			assert.Equal(output, test.expectedValue)
-		}
+	tests := []struct {
+		name    string
+		args    args
+		want    bool
+		wantErr bool
+	}{
+		{"Should be true", args{"true"}, true, false},
+		{"Should be false", args{"false"}, false, false},
+		{"Should be error", args{"x"}, false, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := StringToBool(tt.args.value)
+			assert.Equal(t, tt.wantErr, err != nil, err)
+			assert.Equal(t, tt.want, got)
+		})
 	}
 }

@@ -1,12 +1,13 @@
 package repo
 
 import (
-	"github.com/tttinh/tokoin-challenge/model"
-	"github.com/tttinh/tokoin-challenge/utils"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"strconv"
+
+	"github.com/tttinh/tokoin-challenge/model"
+	"github.com/tttinh/tokoin-challenge/utils"
 )
 
 // User manages all users and underline data structures for searching.
@@ -16,14 +17,19 @@ type User struct {
 	usersByOrg model.UsersByOrg
 }
 
-// Load loads json data from file.
-func (repo *User) Load(filename string) error {
+// LoadFromFile loads data from file.
+func (repo *User) LoadFromFile(filename string) error {
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
 	}
 
-	err = json.Unmarshal(file, &repo.users)
+	return repo.LoadFromByte(file)
+}
+
+// LoadFromByte loads data from []byte.
+func (repo *User) LoadFromByte(data []byte) error {
+	err := json.Unmarshal(data, &repo.users)
 	if err != nil {
 		return err
 	}

@@ -32,17 +32,17 @@ func New() Repository {
 
 func (rp *repositoryImpl) Init(cfg *config.Configuration) error {
 	rp.users = &User{}
-	if err := rp.users.Load(cfg.UserData); err != nil {
+	if err := rp.users.LoadFromFile(cfg.UserData); err != nil {
 		return err
 	}
 
 	rp.tickets = &Ticket{}
-	if err := rp.tickets.Load(cfg.TicketData); err != nil {
+	if err := rp.tickets.LoadFromFile(cfg.TicketData); err != nil {
 		return err
 	}
 
 	rp.organizations = &Organization{}
-	if err := rp.organizations.Load(cfg.OrganizationData); err != nil {
+	if err := rp.organizations.LoadFromFile(cfg.OrganizationData); err != nil {
 		return err
 	}
 

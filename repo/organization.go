@@ -1,12 +1,13 @@
 package repo
 
 import (
-	"github.com/tttinh/tokoin-challenge/model"
-	"github.com/tttinh/tokoin-challenge/utils"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"strconv"
+
+	"github.com/tttinh/tokoin-challenge/model"
+	"github.com/tttinh/tokoin-challenge/utils"
 )
 
 // Organization manages all organizations.
@@ -15,14 +16,19 @@ type Organization struct {
 	orgByID       model.OrgByID
 }
 
-// Load loads json data from file.
-func (repo *Organization) Load(filename string) error {
+// LoadFromFile loads data from file.
+func (repo *Organization) LoadFromFile(filename string) error {
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
 	}
 
-	err = json.Unmarshal(file, &repo.organizations)
+	return repo.LoadFromByte(file)
+}
+
+// LoadFromByte loads data from []byte.
+func (repo *Organization) LoadFromByte(data []byte) error {
+	err := json.Unmarshal(data, &repo.organizations)
 	if err != nil {
 		return err
 	}

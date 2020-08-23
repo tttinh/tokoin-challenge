@@ -1,12 +1,13 @@
 package repo
 
 import (
-	"github.com/tttinh/tokoin-challenge/model"
-	"github.com/tttinh/tokoin-challenge/utils"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"strconv"
+
+	"github.com/tttinh/tokoin-challenge/model"
+	"github.com/tttinh/tokoin-challenge/utils"
 )
 
 // Ticket manages all tickets.
@@ -18,14 +19,19 @@ type Ticket struct {
 	ticketsBySubmitter model.TicketsMap
 }
 
-// Load loads json data from file.
-func (repo *Ticket) Load(filename string) error {
+// LoadFromFile loads data from file.
+func (repo *Ticket) LoadFromFile(filename string) error {
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
 	}
 
-	err = json.Unmarshal(file, &repo.tickets)
+	return repo.LoadFromByte(file)
+}
+
+// LoadFromByte loads data from []byte.
+func (repo *Ticket) LoadFromByte(data []byte) error {
+	err := json.Unmarshal(data, &repo.tickets)
 	if err != nil {
 		return err
 	}
